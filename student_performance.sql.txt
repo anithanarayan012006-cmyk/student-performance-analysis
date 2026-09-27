@@ -1,0 +1,99 @@
+-- ============================================
+-- Student Performance Analysis Using SQL
+-- ============================================
+
+-- Create table
+CREATE TABLE students (
+    student_id INTEGER PRIMARY KEY,
+    student_name TEXT,
+    gender TEXT,
+    age INTEGER,
+    course TEXT,
+    subject TEXT,
+    marks INTEGER,
+    attendance INTEGER
+);
+
+-- Insert student data
+INSERT INTO students
+(student_id, student_name, gender, age, course, subject, marks, attendance)
+VALUES
+(1, 'Ananya', 'Female', 19, 'BCA', 'Java', 85, 92),
+(2, 'Rahul', 'Male', 20, 'BCA', 'Java', 72, 84),
+(3, 'Priya', 'Female', 19, 'BCA', 'SQL', 91, 95),
+(4, 'Arjun', 'Male', 20, 'BCA', 'SQL', 65, 76),
+(5, 'Sneha', 'Female', 19, 'BCA', 'Python', 88, 90),
+(6, 'Kiran', 'Male', 21, 'BCA', 'Python', 74, 82),
+(7, 'Divya', 'Female', 19, 'BCA', 'Java', 95, 97),
+(8, 'Vivek', 'Male', 20, 'BCA', 'SQL', 68, 73),
+(9, 'Pooja', 'Female', 20, 'BCA', 'Python', 81, 88),
+(10, 'Rohit', 'Male', 19, 'BCA', 'Java', 78, 86);
+
+-- ============================================
+-- DATA ANALYSIS QUERIES
+-- ============================================
+
+-- 1. View all students
+SELECT * FROM students;
+
+-- 2. Average marks
+SELECT AVG(marks) AS average_marks
+FROM students;
+
+-- 3. Highest-scoring student
+SELECT student_name, subject, marks
+FROM students
+ORDER BY marks DESC
+LIMIT 1;
+
+-- 4. Lowest-scoring student
+SELECT student_name, subject, marks
+FROM students
+ORDER BY marks ASC
+LIMIT 1;
+
+-- 5. Average marks by subject
+SELECT subject, AVG(marks) AS average_marks
+FROM students
+GROUP BY subject
+ORDER BY average_marks DESC;
+
+-- 6. Lowest attendance
+SELECT student_name, attendance
+FROM students
+ORDER BY attendance ASC
+LIMIT 1;
+
+-- 7. Students with attendance below 80%
+SELECT student_name, marks, attendance
+FROM students
+WHERE attendance < 80
+ORDER BY attendance ASC;
+
+-- 8. Students scoring above 80
+SELECT student_name, subject, marks
+FROM students
+WHERE marks > 80
+ORDER BY marks DESC;
+
+-- 9. Percentage scoring above 80
+SELECT
+    COUNT(*) * 100.0 / (SELECT COUNT(*) FROM students)
+    AS percentage_above_80
+FROM students
+WHERE marks > 80;
+
+-- 10. Average attendance
+SELECT AVG(attendance) AS average_attendance
+FROM students;
+
+-- 11. Top 3 students
+SELECT student_name, subject, marks, attendance
+FROM students
+ORDER BY marks DESC
+LIMIT 3;
+
+-- 12. Students ordered by attendance
+SELECT student_name, marks, attendance
+FROM students
+ORDER BY attendance DESC;
